@@ -391,6 +391,7 @@ def task_qgis_source_rasters():
                 path,
                 QGIS_PATH / "create_print_layout.py",
                 QGIS_PATH / "snapshots.bash",
+                SHORELINE_PROCESSED_PATH,
             ],
             TASK_DEP: ["concatenate_scales"],
             TARGETS: [target_path],
