@@ -1,0 +1,5 @@
+[
+  { "name": "N-S (155-25)", "start": 155, "end": 25 },
+  { "name": "NE-SW (25-75)", "start": 25, "end": 75 },
+  { "name": "WNW-ESE (85-135)", "start": 85, "end": 135 }
+]

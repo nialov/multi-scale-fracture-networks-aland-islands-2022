@@ -1,0 +1,64 @@
+{
+  "type": "FeatureCollection",
+  "name": "points_of_interest",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:EPSG::3067"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "Label": "Mariehamn"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          107933.21313782647,
+          6683774.140903402
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Label": "Getaberget Northern Shore"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108513.59410650605,
+          6719933.831592484
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Label": "Godby"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          112071.95982084476,
+          6697633.725383932
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "Label": "Eckerö"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          88265.47154751697,
+          6699535.722940468
+        ]
+      }
+    }
+  ]
+}

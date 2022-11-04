@@ -1,0 +1,38 @@
+[tool.poetry]
+name = "ahvenanmaa-scalability"
+version = "0.1.0"
+description = ""
+authors = ["nialov <nikolasovaskainen@hotmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.8,<3.12"
+beartype = "*"
+cachier = "*"
+dill = "*"
+doit = {extras = ["toml"], version = "*"}
+fiona = "1.8.20"
+fractopo = {path = "./fractopo", develop = true}
+jupyterlab = "*"
+matplotlib-scalebar = "^0.8.0"
+# tracerepo = "*"
+rasterio = "^1.2.10"
+pandera = "^0.13.3"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.5"
+pyinstrument = "^4.3.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+testpaths =[
+    "src/tests",
+    ]
+addopts = "--doctest-modules --pdbcls=IPython.terminal.debugger:Pdb"
+doctest_optionflags =[
+    ]
+
+filterwarnings =[
+    ]

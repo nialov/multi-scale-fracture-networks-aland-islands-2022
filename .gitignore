@@ -1,0 +1,10 @@
+.ipynb_checkpoints/
+__pycache__/
+dumped_network
+/all_scales_fit_geta.svg
+/outputs/
+.direnv
+qgis/outputs
+.doit.db
+.fractopo_cache
+data/rasters

@@ -1,0 +1,36 @@
+name: test-reproducibility
+
+on:
+  # Only triggered manually
+  workflow_dispatch:
+
+jobs:
+  test-reproducibility:
+    name: Test reproducibility
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
+      - uses: cachix/install-nix-action@v17
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+      # - name: Cache .
+      #   uses: actions/cache@v2
+      #   with:
+      #     path: .nox
+      #     key: ${{ runner.os }}-${{ hashFiles('noxfile.py') }}-${{ hashFiles('flake.lock') }}-nox
+      - name: Check flake
+        run: |
+          nix -Lv flake check
+      - name: Poetry installs python dependencies and runs doit
+        run: |
+          nix -Lv develop -c poetry install
+          # Run subset of tasks that are suitable for runs in GitHub Actions
+          # The runner will run out of disk space on e.g., drone orthomosaic
+          # montage tasks (final_add_index_to_drone_rasters)
+          nix -Lv develop -c poetry run doit -n 2 -v 0 'final_*'
+      - uses: actions/upload-artifact@v3
+        with:
+          name: final
+          path: outputs/final/

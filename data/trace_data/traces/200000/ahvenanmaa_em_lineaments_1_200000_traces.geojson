@@ -1,0 +1,1327 @@
+{
+ "type": "FeatureCollection",
+ "crs": {
+  "type": "name",
+  "properties": {
+   "name": "urn:ogc:def:crs:EPSG::3067"
+  }
+ },
+ "features": [
+  {
+   "type": "Feature",
+   "properties": {
+    "Lineament_ID": "EM_A43",
+    "Lineament_Name": null,
+    "Data_Source": "EM",
+    "Scale": "1:500 000/1:200 000",
+    "Certainty": "1_Geoph_OR_LiDAR",
+    "Geological_Type": null,
+    "Observation": null,
+    "Remarks": null,
+    "Operator": "Markovaara-Koivisto M.",
+    "Date": "2019-04-12T00:00:00",
+    "Structure_Name": null,
+    "Fault_System": null,
+    "SHAPE_Length": 32984.48292967203,
+    "VALIDATION_ERRORS": "('SHARP TURNS',)"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      125499.73919999972,
+      6698232.281099999
+     ],
+     [
+      119149.72649999987,
+      6700745.8278
+     ],
+     [
+      112270.5461,
+      6704185.418
+     ],
+     [
+      106978.86880000029,
+      6707889.5921
+     ],
+     [
+      101819.4835,
+      6711593.7662
+     ],
+     [
+      97321.5577999996,
+      6714504.1887
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "Lineament_ID": "EM_A44",
+    "Lineament_Name": null,
+    "Data_Source": "EM",
+    "Scale": "1:500 000/1:200 000",
+    "Certainty": "1_Geoph_OR_LiDAR",
+    "Geological_Type": null,
+    "Observation": null,
+    "Remarks": null,
+    "Operator": "Markovaara-Koivisto M.",
+    "Date": "2019-04-12T00:00:00",
+    "Structure_Name": null,
+    "Fault_System": null,
+    "SHAPE_Length": 7218.097991863692,
+    "VALIDATION_ERRORS": "()"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      124573.6957,
+      6705508.3373
+     ],
+     [
+      119149.72649999987,
+      6700745.8278
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "Lineament_ID": "EM_A189",
+    "Lineament_Name": null,
+    "Data_Source": "EM",
+    "Scale": "1:500 000/1:200 000",
+    "Certainty": "1_Geoph_OR_LiDAR",
+    "Geological_Type": null,
+    "Observation": null,
+    "Remarks": null,
+    "Operator": "Markovaara-Koivisto M.",
+    "Date": "2019-04-15T00:00:00",
+    "Structure_Name": null,
+    "Fault_System": null,
+    "SHAPE_Length": 9029.719178527073,
+    "VALIDATION_ERRORS": "()"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      113278.87490000017,
+      6697164.366699999
+     ],
+     [
+      108729.8850999996,
+      6699437.1291
+     ],
+     [
+      105422.5867999997,
+      6701586.873
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "Lineament_ID": "EM_A190",
+    "Lineament_Name": null,
+    "Data_Source": "EM",
+    "Scale": "1:500 000/1:200 000",
+    "Certainty": "1_Geoph_OR_LiDAR",
+    "Geological_Type": null,
+    "Observation": null,
+    "Remarks": null,
+    "Operator": "Markovaara-Koivisto M.",
+    "Date": "2019-04-15T00:00:00",
+    "Structure_Name": null,
+    "Fault_System": null,
+    "SHAPE_Length": 7806.444191105076,
+    "VALIDATION_ERRORS": "()"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      114220.00030000042,
+      6693186.3354
+     ],
+     [
+      110368.3844999997,
+      6694616.9856
+     ],
+     [
+      107039.41440000013,
+      6696226.6472
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "Lineament_ID": "EM_A191",
+    "Lineament_Name": null,
+    "Data_Source": "EM",
+    "Scale": "1:500 000/1:200 000",
+    "Certainty": "1_Geoph_OR_LiDAR",
+    "Geological_Type": null,
+    "Observation": null,
+    "Remarks": null,
+    "Operator": "Markovaara-Koivisto M.",
+    "Date": "2019-04-15T00:00:00",
+    "Structure_Name": null,
+    "Fault_System": null,
+    "SHAPE_Length": 25623.452873408693,
+    "VALIDATION_ERRORS": "()"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      112678.358,
+      6688603.3247
+     ],
+     [
+      107783.55649999995,
+      6691116.8714
+     ],
+     [
+      101830.41959999967,
+      6694821.045499999
+     ],
+     [
+      97729.36980000045,
+      6697731.468
+     ],
+     [
+      94422.07149999961,
+      6699848.1389
+     ],
+     [
+      91114.7731999997,
+      6702361.6855
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "Lineament_ID": "EM_A195",
+    "Lineament_Name": null,
+    "Data_Source": "EM",
+    "Scale": "1:500 000/1:200 000",
+    "Certainty": "1_Geoph_OR_LiDAR",
+    "Geological_Type": null,
+    "Observation": null,
+    "Remarks": null,
+    "Operator": "Markovaara-Koivisto M.",
+    "Date": "2019-04-15T00:00:00",
+    "Structure_Name": null,
+    "Fault_System": null,
+    "SHAPE_Length": 17087.936514402783,
+    "VALIDATION_ERRORS": "()"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      101301.25189999957,
+      6684237.691
+     ],
+     [
+      105005.426,
+      6688867.9086
+     ],
+     [
+      106808.67470000032,
+      6691723.4645
+     ],
+     [
+      110800.4140999997,
+      6698402.6532
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "Lineament_ID": "EM_B235",
+    "Lineament_Name": null,
+    "Data_Source": "EM",
+    "Scale": "1:200 000",
+    "Certainty": "1_Geoph_OR_LiDAR",
+    "Geological_Type": null,
+    "Observation": null,
+    "Remarks": null,
+    "Operator": "Markovaara-Koivisto M.",
+    "Date": "2019-04-29T00:00:00",
+    "Structure_Name": null,
+    "Fault_System": null,
+    "SHAPE_Length": 8455.548144968467,
+    "VALIDATION_ERRORS": "()"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      112938.4808,
+      6698761.2249
+     ],
+     [
+      114420.1503999997,
+      6701354.1468
+     ],
+     [
+      117013.07230000012,
+      6706169.5731
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "Lineament_ID": "EM_B236",
+    "Lineament_Name": null,
+    "Data_Source": "EM",
+    "Scale": "1:200 000",
+    "Certainty": "1_Geoph_OR_LiDAR",
+    "Geological_Type": null,
+    "Observation": null,
+    "Remarks": null,
+    "Operator": "Markovaara-Koivisto M.",
+    "Date": "2019-04-29T00:00:00",
+    "Structure_Name": null,
+    "Fault_System": null,
+    "SHAPE_Length": 6009.724094473268,
+    "VALIDATION_ERRORS": "()"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      110557.22599999979,
+      6712149.1684
+     ],
+     [
+      114420.1503999997,
+      6716752.9276
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "Lineament_ID": "EM_B237",
+    "Lineament_Name": null,
+    "Data_Source": "EM",
+    "Scale": "1:200 000",
+    "Certainty": "1_Geoph_OR_LiDAR",
+    "Geological_Type": null,
+    "Observation": null,
+    "Remarks": null,
+    "Operator": "Markovaara-Koivisto M.",
+    "Date": "2019-04-29T00:00:00",
+    "Structure_Name": null,
+    "Fault_System": null,
+    "SHAPE_Length": 7187.035465946819,
+    "VALIDATION_ERRORS": "()"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      116272.23749999981,
+      6710402.914899999
+     ],
+     [
+      119658.91089999955,
+      6713842.5051
+     ],
+     [
+      121246.4140999997,
+      6715588.7586
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "Lineament_ID": "EM_B238",
+    "Lineament_Name": null,
+    "Data_Source": "EM",
+    "Scale": "1:200 000",
+    "Certainty": "1_Geoph_OR_LiDAR",
+    "Geological_Type": null,
+    "Observation": null,
+    "Remarks": null,
+    "Operator": "Markovaara-Koivisto M.",
+    "Date": "2019-04-29T00:00:00",
+    "Structure_Name": null,
+    "Fault_System": null,
+    "SHAPE_Length": 14213.646019027094,
+    "VALIDATION_ERRORS": "()"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      99868.03799999971,
+      6702677.0660999995
+     ],
+     [
+      107382.21970000025,
+      6714742.0901999995
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "Lineament_ID": "EM_B239",
+    "Lineament_Name": null,
+    "Data_Source": "EM",
+    "Scale": "1:200 000",
+    "Certainty": "1_Geoph_OR_LiDAR",
+    "Geological_Type": null,
+    "Observation": null,
+    "Remarks": null,
+    "Operator": "Markovaara-Koivisto M.",
+    "Date": "2019-04-29T00:00:00",
+    "Structure_Name": null,
+    "Fault_System": null,
+    "SHAPE_Length": 20370.35530929402,
+    "VALIDATION_ERRORS": "()"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      109234.30669999961,
+      6673202.4238
+     ],
+     [
+      106641.38489999995,
+      6683679.9448
+     ],
+     [
+      104673.11409999989,
+      6693052.2578
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "Lineament_ID": "EM_B240",
+    "Lineament_Name": null,
+    "Data_Source": "EM",
+    "Scale": "1:200 000",
+    "Certainty": "1_Geoph_OR_LiDAR",
+    "Geological_Type": null,
+    "Observation": null,
+    "Remarks": null,
+    "Operator": "Markovaara-Koivisto M.",
+    "Date": "2019-04-29T00:00:00",
+    "Structure_Name": null,
+    "Fault_System": null,
+    "SHAPE_Length": 4110.466775952616,
+    "VALIDATION_ERRORS": "()"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      103206.55279999971,
+      6693964.7849
+     ],
+     [
+      105318.46559999976,
+      6697491.2224
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "Lineament_ID": "EM_B241",
+    "Lineament_Name": null,
+    "Data_Source": "EM",
+    "Scale": "1:200 000",
+    "Certainty": "1_Geoph_OR_LiDAR",
+    "Geological_Type": null,
+    "Observation": null,
+    "Remarks": null,
+    "Operator": "Markovaara-Koivisto M.",
+    "Date": "2019-04-29T00:00:00",
+    "Structure_Name": null,
+    "Fault_System": null,
+    "SHAPE_Length": 9048.223459638008,
+    "VALIDATION_ERRORS": "()"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      103714.56180000026,
+      6694813.0501
+     ],
+     [
+      101773.04179999977,
+      6699237.4759
+     ],
+     [
+      100149.4501,
+      6703128.9108
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "Lineament_ID": "EM_B242",
+    "Lineament_Name": null,
+    "Data_Source": "EM",
+    "Scale": "1:200 000",
+    "Certainty": "1_Geoph_OR_LiDAR",
+    "Geological_Type": null,
+    "Observation": null,
+    "Remarks": null,
+    "Operator": "Markovaara-Koivisto M.",
+    "Date": "2019-04-29T00:00:00",
+    "Structure_Name": null,
+    "Fault_System": null,
+    "SHAPE_Length": 29901.358748493585,
+    "VALIDATION_ERRORS": "()"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      97539.70000000019,
+      6684209.1125
+     ],
+     [
+      95264.27880000044,
+      6694369.1328
+     ],
+     [
+      93412.19180000015,
+      6703629.568
+     ],
+     [
+      90554.68599999975,
+      6713260.4206
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "Lineament_ID": "EM_B243",
+    "Lineament_Name": null,
+    "Data_Source": "EM",
+    "Scale": "1:200 000",
+    "Certainty": "1_Geoph_OR_LiDAR",
+    "Geological_Type": null,
+    "Observation": null,
+    "Remarks": null,
+    "Operator": "Markovaara-Koivisto M.",
+    "Date": "2019-04-29T00:00:00",
+    "Structure_Name": null,
+    "Fault_System": null,
+    "SHAPE_Length": 8308.1018512425,
+    "VALIDATION_ERRORS": "()"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      89549.26740000024,
+      6699978.310699999
+     ],
+     [
+      91824.6886,
+      6691987.878
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "Lineament_ID": "EM_B244",
+    "Lineament_Name": null,
+    "Data_Source": "EM",
+    "Scale": "1:200 000",
+    "Certainty": "1_Geoph_OR_LiDAR",
+    "Geological_Type": null,
+    "Observation": null,
+    "Remarks": null,
+    "Operator": "Markovaara-Koivisto M.",
+    "Date": "2019-04-29T00:00:00",
+    "Structure_Name": null,
+    "Fault_System": null,
+    "SHAPE_Length": 9493.347207596309,
+    "VALIDATION_ERRORS": "()"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      89549.26740000024,
+      6694527.883099999
+     ],
+     [
+      88226.34800000023,
+      6698708.3081
+     ],
+     [
+      87062.1791000003,
+      6703682.4848
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "Lineament_ID": "EM_B245",
+    "Lineament_Name": null,
+    "Data_Source": "EM",
+    "Scale": "1:200 000",
+    "Certainty": "1_Geoph_OR_LiDAR",
+    "Geological_Type": null,
+    "Observation": null,
+    "Remarks": null,
+    "Operator": "Markovaara-Koivisto M.",
+    "Date": "2019-04-29T00:00:00",
+    "Structure_Name": null,
+    "Fault_System": null,
+    "SHAPE_Length": 2791.859972235362,
+    "VALIDATION_ERRORS": "()"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      86268.42750000022,
+      6698232.0572
+     ],
+     [
+      88998.93290000036,
+      6697649.9727
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "Lineament_ID": "EM_B246",
+    "Lineament_Name": null,
+    "Data_Source": "EM",
+    "Scale": "1:200 000",
+    "Certainty": "1_Geoph_OR_LiDAR",
+    "Geological_Type": null,
+    "Observation": null,
+    "Remarks": null,
+    "Operator": "Markovaara-Koivisto M.",
+    "Date": "2019-04-29T00:00:00",
+    "Structure_Name": null,
+    "Fault_System": null,
+    "SHAPE_Length": 5901.9070258857155,
+    "VALIDATION_ERRORS": "()"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      86035.59370000008,
+      6696062.4695
+     ],
+     [
+      90036.10170000046,
+      6691723.294199999
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "Lineament_ID": "EM_B254",
+    "Lineament_Name": null,
+    "Data_Source": "EM",
+    "Scale": "1:200 000",
+    "Certainty": "1_Geoph_OR_LiDAR",
+    "Geological_Type": null,
+    "Observation": null,
+    "Remarks": null,
+    "Operator": "Markovaara-Koivisto M.",
+    "Date": "2019-04-29T00:00:00",
+    "Structure_Name": null,
+    "Fault_System": null,
+    "SHAPE_Length": 12839.372536820276,
+    "VALIDATION_ERRORS": "()"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      130014.72329999972,
+      6672882.2773
+     ],
+     [
+      131541.72109999973,
+      6672320.945499999
+     ],
+     [
+      133624.30009999964,
+      6672108.685799999
+     ],
+     [
+      136682.2366000004,
+      6671030.1903
+     ],
+     [
+      139539.7423,
+      6669707.271
+     ],
+     [
+      140174.7435999997,
+      6669918.9381
+     ],
+     [
+      142132.66420000046,
+      6669283.936799999
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "Lineament_ID": "EM_B259",
+    "Lineament_Name": null,
+    "Data_Source": "EM",
+    "Scale": "1:200 000",
+    "Certainty": "1_Geoph_OR_LiDAR",
+    "Geological_Type": null,
+    "Observation": null,
+    "Remarks": null,
+    "Operator": "Markovaara-Koivisto M.",
+    "Date": "2019-04-29T00:00:00",
+    "Structure_Name": null,
+    "Fault_System": null,
+    "SHAPE_Length": 10124.838737426595,
+    "VALIDATION_ERRORS": "()"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      112998.27680000011,
+      6676296.1147
+     ],
+     [
+      116702.45079999976,
+      6677724.8675999995
+     ],
+     [
+      120089.12430000026,
+      6678941.953299999
+     ],
+     [
+      122364.5455,
+      6680106.1223
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "Lineament_ID": "EM_B260",
+    "Lineament_Name": null,
+    "Data_Source": "EM",
+    "Scale": "1:200 000",
+    "Certainty": "1_Geoph_OR_LiDAR",
+    "Geological_Type": null,
+    "Observation": null,
+    "Remarks": null,
+    "Operator": "Markovaara-Koivisto M.",
+    "Date": "2019-04-29T00:00:00",
+    "Structure_Name": null,
+    "Fault_System": null,
+    "SHAPE_Length": 7702.508429924683,
+    "VALIDATION_ERRORS": "()"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      124904.55059999973,
+      6679524.037799999
+     ],
+     [
+      127179.9718000004,
+      6683386.9622
+     ],
+     [
+      128555.80790000036,
+      6686297.3847
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "Lineament_ID": "EM_B261",
+    "Lineament_Name": null,
+    "Data_Source": "EM",
+    "Scale": "1:200 000",
+    "Certainty": "1_Geoph_OR_LiDAR",
+    "Geological_Type": null,
+    "Observation": null,
+    "Remarks": null,
+    "Operator": "Markovaara-Koivisto M.",
+    "Date": "2019-04-29T00:00:00",
+    "Structure_Name": null,
+    "Fault_System": null,
+    "SHAPE_Length": 10044.200696668762,
+    "VALIDATION_ERRORS": "()"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      99239.91590000037,
+      6714118.3779
+     ],
+     [
+      102362.0055,
+      6716446.7158
+     ],
+     [
+      107230.34860000014,
+      6720203.8067
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "Lineament_ID": "EM_B262",
+    "Lineament_Name": null,
+    "Data_Source": "EM",
+    "Scale": "1:200 000",
+    "Certainty": "1_Geoph_OR_LiDAR",
+    "Geological_Type": null,
+    "Observation": null,
+    "Remarks": null,
+    "Operator": "Markovaara-Koivisto M.",
+    "Date": "2019-04-29T00:00:00",
+    "Structure_Name": null,
+    "Fault_System": null,
+    "SHAPE_Length": 5854.536899701389,
+    "VALIDATION_ERRORS": "()"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      117602.03600000031,
+      6698349.1796
+     ],
+     [
+      120459.54169999994,
+      6699142.9311999995
+     ],
+     [
+      123347.77880000044,
+      6699084.0988
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "Lineament_ID": "EM_B263",
+    "Lineament_Name": null,
+    "Data_Source": "EM",
+    "Scale": "1:200 000",
+    "Certainty": "1_Geoph_OR_LiDAR",
+    "Geological_Type": null,
+    "Observation": null,
+    "Remarks": null,
+    "Operator": "Markovaara-Koivisto M.",
+    "Date": "2019-04-29T00:00:00",
+    "Structure_Name": null,
+    "Fault_System": null,
+    "SHAPE_Length": 4575.483355736561,
+    "VALIDATION_ERRORS": "()"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      85587.38860000018,
+      6693904.1708
+     ],
+     [
+      86035.59370000008,
+      6696062.4695
+     ],
+     [
+      86268.42750000022,
+      6698232.0572
+     ],
+     [
+      86314.99419999961,
+      6698415.3256
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "Lineament_ID": "EM_B264",
+    "Lineament_Name": null,
+    "Data_Source": "EM",
+    "Scale": "1:200 000",
+    "Certainty": "1_Geoph_OR_LiDAR",
+    "Geological_Type": null,
+    "Observation": null,
+    "Remarks": null,
+    "Operator": "Markovaara-Koivisto M.",
+    "Date": "2019-04-29T00:00:00",
+    "Structure_Name": null,
+    "Fault_System": null,
+    "SHAPE_Length": 5280.118253217671,
+    "VALIDATION_ERRORS": "()"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      123932.82160000037,
+      6704945.6186
+     ],
+     [
+      128489.66189999972,
+      6702278.25
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "Lineament_ID": "EM_B265",
+    "Lineament_Name": null,
+    "Data_Source": "EM",
+    "Scale": "1:200 000",
+    "Certainty": "1_Geoph_OR_LiDAR",
+    "Geological_Type": null,
+    "Observation": null,
+    "Remarks": null,
+    "Operator": "Markovaara-Koivisto M.",
+    "Date": "2019-04-29T00:00:00",
+    "Structure_Name": null,
+    "Fault_System": null,
+    "SHAPE_Length": 6884.876838305721,
+    "VALIDATION_ERRORS": "()"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      131717.585,
+      6702542.8339
+     ],
+     [
+      136585.92810000014,
+      6697674.4908
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "Lineament_ID": "EM_B266",
+    "Lineament_Name": null,
+    "Data_Source": "EM",
+    "Scale": "1:200 000",
+    "Certainty": "1_Geoph_OR_LiDAR",
+    "Geological_Type": null,
+    "Observation": null,
+    "Remarks": null,
+    "Operator": "Markovaara-Koivisto M.",
+    "Date": "2019-04-29T00:00:00",
+    "Structure_Name": null,
+    "Fault_System": null,
+    "SHAPE_Length": 15380.173498130243,
+    "VALIDATION_ERRORS": "()"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      116900.8887,
+      6692171.1465
+     ],
+     [
+      114942.96810000017,
+      6694446.5677
+     ],
+     [
+      114043.38300000038,
+      6697039.489499999
+     ],
+     [
+      113207.9927000003,
+      6699232.8708
+     ],
+     [
+      112455.87980000023,
+      6702172.4165
+     ],
+     [
+      111238.79409999959,
+      6706247.0079
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "Lineament_ID": "EM_B267",
+    "Lineament_Name": null,
+    "Data_Source": "EM",
+    "Scale": "1:200 000",
+    "Certainty": "1_Geoph_OR_LiDAR",
+    "Geological_Type": null,
+    "Observation": null,
+    "Remarks": null,
+    "Operator": "Markovaara-Koivisto M.",
+    "Date": "2019-04-29T00:00:00",
+    "Structure_Name": null,
+    "Fault_System": null,
+    "SHAPE_Length": 8564.666757553177,
+    "VALIDATION_ERRORS": "()"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      102719.19369999971,
+      6713443.688999999
+     ],
+     [
+      106317.53419999965,
+      6714819.5251
+     ],
+     [
+      110603.79279999994,
+      6716777.445699999
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "Lineament_ID": "EM_B268",
+    "Lineament_Name": null,
+    "Data_Source": "EM",
+    "Scale": "1:200 000",
+    "Certainty": "1_Geoph_OR_LiDAR",
+    "Geological_Type": null,
+    "Observation": null,
+    "Remarks": null,
+    "Operator": "Markovaara-Koivisto M.",
+    "Date": "2019-04-29T00:00:00",
+    "Structure_Name": null,
+    "Fault_System": null,
+    "SHAPE_Length": 2845.0202229018305,
+    "VALIDATION_ERRORS": "()"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      109280.87349999975,
+      6713602.4393
+     ],
+     [
+      107382.21970000025,
+      6714742.0901999995
+     ],
+     [
+      106835.34449999966,
+      6715056.0557
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "Lineament_ID": "EM_B269",
+    "Lineament_Name": null,
+    "Data_Source": "EM",
+    "Scale": "1:200 000",
+    "Certainty": "1_Geoph_OR_LiDAR",
+    "Geological_Type": null,
+    "Observation": null,
+    "Remarks": null,
+    "Operator": "Markovaara-Koivisto M.",
+    "Date": "2019-04-29T00:00:00",
+    "Structure_Name": null,
+    "Fault_System": null,
+    "SHAPE_Length": 4392.410831975489,
+    "VALIDATION_ERRORS": "()"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      117218.38939999975,
+      6676137.364399999
+     ],
+     [
+      120975.48020000011,
+      6678412.785599999
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "Lineament_ID": "EM_B270",
+    "Lineament_Name": null,
+    "Data_Source": "EM",
+    "Scale": "1:200 000",
+    "Certainty": "1_Geoph_OR_LiDAR",
+    "Geological_Type": null,
+    "Observation": null,
+    "Remarks": null,
+    "Operator": "Markovaara-Koivisto M.",
+    "Date": "2019-04-29T00:00:00",
+    "Structure_Name": null,
+    "Fault_System": null,
+    "SHAPE_Length": 4429.379297949472,
+    "VALIDATION_ERRORS": "()"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      119387.977,
+      6673544.4425
+     ],
+     [
+      120869.64670000039,
+      6676719.448899999
+     ],
+     [
+      121345.8975999998,
+      6677513.2005
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "Lineament_ID": "EM_B271",
+    "Lineament_Name": null,
+    "Data_Source": "EM",
+    "Scale": "1:200 000",
+    "Certainty": "1_Geoph_OR_LiDAR",
+    "Geological_Type": null,
+    "Observation": null,
+    "Remarks": null,
+    "Operator": "Markovaara-Koivisto M.",
+    "Date": "2019-04-29T00:00:00",
+    "Structure_Name": null,
+    "Fault_System": null,
+    "SHAPE_Length": 8866.988279048352,
+    "VALIDATION_ERRORS": "()"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      121875.0653,
+      6669787.3517
+     ],
+     [
+      122033.81570000015,
+      6675396.5296
+     ],
+     [
+      122457.14979999978,
+      6678624.4527
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "Lineament_ID": "EM_B272",
+    "Lineament_Name": null,
+    "Data_Source": "EM",
+    "Scale": "1:200 000",
+    "Certainty": "1_Geoph_OR_LiDAR",
+    "Geological_Type": null,
+    "Observation": null,
+    "Remarks": null,
+    "Operator": "Markovaara-Koivisto M.",
+    "Date": "2019-04-29T00:00:00",
+    "Structure_Name": null,
+    "Fault_System": null,
+    "SHAPE_Length": 7561.977245551746,
+    "VALIDATION_ERRORS": "()"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      122933.40079999994,
+      6681481.9584
+     ],
+     [
+      124415.07039999962,
+      6688414.0556
+     ],
+     [
+      124626.73749999981,
+      6688837.389799999
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "Lineament_ID": "EM_B273",
+    "Lineament_Name": null,
+    "Data_Source": "EM",
+    "Scale": "1:200 000",
+    "Certainty": "1_Geoph_OR_LiDAR",
+    "Geological_Type": null,
+    "Observation": null,
+    "Remarks": null,
+    "Operator": "Markovaara-Koivisto M.",
+    "Date": "2019-04-29T00:00:00",
+    "Structure_Name": null,
+    "Fault_System": null,
+    "SHAPE_Length": 11835.389506842843,
+    "VALIDATION_ERRORS": "()"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      125896.7401,
+      6690901.1439
+     ],
+     [
+      132775.9205,
+      6700531.9965
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "Lineament_ID": "EM_B274",
+    "Lineament_Name": null,
+    "Data_Source": "EM",
+    "Scale": "1:200 000",
+    "Certainty": "1_Geoph_OR_LiDAR",
+    "Geological_Type": null,
+    "Observation": null,
+    "Remarks": null,
+    "Operator": "Markovaara-Koivisto M.",
+    "Date": "2019-04-29T00:00:00",
+    "Structure_Name": null,
+    "Fault_System": null,
+    "SHAPE_Length": 4614.6945080449605,
+    "VALIDATION_ERRORS": "()"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      137220.9293999998,
+      6683069.4616
+     ],
+     [
+      140237.18539999984,
+      6686561.968599999
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "Lineament_ID": "EM_B276",
+    "Lineament_Name": null,
+    "Data_Source": "EM",
+    "Scale": "1:200 000",
+    "Certainty": "1_Geoph_OR_LiDAR",
+    "Geological_Type": null,
+    "Observation": null,
+    "Remarks": null,
+    "Operator": "Markovaara-Koivisto M.",
+    "Date": "2019-04-29T00:00:00",
+    "Structure_Name": null,
+    "Fault_System": null,
+    "SHAPE_Length": 16199.052033024403,
+    "VALIDATION_ERRORS": "()"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      135210.09200000018,
+      6713073.2716
+     ],
+     [
+      128383.8284,
+      6717094.9463
+     ],
+     [
+      122298.39950000029,
+      6722704.1241999995
+     ]
+    ]
+   }
+  }
+ ]
+}
