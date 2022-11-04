@@ -83,6 +83,7 @@
           shellHook = ''
             [[ -a .pre-commit-config.yaml ]] && \
               echo "Installing pre-commit hooks"; pre-commit install
+            poetry env use ${pkgs.python39.interpreter}
             ${pkgs.pastel}/bin/pastel paint -n green "
             Run poetry install to install environment from poetry.lock
             "
