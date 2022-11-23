@@ -9,6 +9,8 @@ import matplotlib.patheffects as PathEffects
 import matplotlib.pyplot as plt
 import pandas as pd
 import typer
+from matplotlib.axes import Axes
+from matplotlib.figure import Figure
 from matplotlib.patches import Patch
 from rich.console import Console
 from rich.traceback import install
@@ -16,7 +18,7 @@ from shapely.geometry import Polygon, box
 from shapely.wkt import loads
 
 import background
-from fractopo.general import read_geofile
+from fractopo.general import geom_bounds, read_geofile
 from striations import plot_striations
 
 CONSOLE = Console()
@@ -116,6 +118,8 @@ def lithology(
 
     # Setup figure
     fig, ax = plt.subplots(figsize=(8.27, 11.75))
+    assert isinstance(fig, Figure)
+    assert isinstance(ax, Axes)
 
     # Plot shoreline polygons with very low alpha
     shoreline_gdf_clipped.plot(linewidth=0, ax=ax, color="black", alpha=1.0)
@@ -248,19 +252,26 @@ def lithology(
 
     # Annotate the target area circles
     for area, title in zip((area_1_200000, area_1_20000), ("1:200 000", "1:20 000")):
-        bounds = area.total_bounds
-        center, bottom = background.circle_bounds_center_bottom(bounds)
-        txt = ax.text(
-            s=title,
-            x=center,
-            y=bottom + 2000,
-            fontsize="large",
-            color="black",
-            ha="center",
-        )
-        txt.set_path_effects(
-            [PathEffects.withStroke(linewidth=4.5, foreground="w", alpha=0.75)]
-        )
+        # 1:20k consists of two circles
+        for target_area in area.geometry.values:
+            assert isinstance(target_area, Polygon)
+            bounds = geom_bounds(target_area)
+            center, bottom = background.circle_bounds_center_bottom(bounds)
+            txt = ax.text(
+                s=title,
+                x=center,
+                y=bottom + 4000,
+                fontsize="large",
+                color="black",
+                ha="center",
+            )
+            txt.set_path_effects(
+                [
+                    PathEffects.withStroke(
+                        linewidth=4.5, foreground="lightgray", alpha=0.75
+                    )
+                ]
+            )
 
     # Annotate suites
     text_kwargs = dict(rotation=-55, fontsize="large", va="center", ha="center")

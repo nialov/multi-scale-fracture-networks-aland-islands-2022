@@ -71,8 +71,17 @@ AREA_20M_PATHS = [
 ]
 TRACES_20K_DIR = TRACE_DATA_PATH / "infinity"
 AREA_20K_DIR = AREA_DATA_PATH / "infinity"
-TRACES_20K_PATH = TRACES_20K_DIR / "geta_lidar_lineaments_infinity_traces.geojson"
-AREA_20K_PATH = AREA_20K_DIR / "geta_lidar_lineaments_inf_circular_area.geojson"
+TRACES_20K_PATHS = [
+    TRACES_20K_DIR / path
+    for path in ("ahvenanmaa_lidar_lineaments_1_20000_traces.geojson",)
+]
+AREA_20K_PATHS = [
+    AREA_20K_DIR / path
+    for path in (
+        "geta_lidar_lineaments_1_20000_circular_area.geojson",
+        "godby_lidar_lineaments_1_20000_circular_area.geojson",
+    )
+]
 TRACES_200K_DIR = TRACE_DATA_PATH / "200000"
 AREA_200K_DIR = AREA_DATA_PATH / "200000"
 LIDAR_TRACES_200K_PATH = (
@@ -110,12 +119,13 @@ POINTS_OF_INTEREST_PATH = BACKGROUND_PATH / "points_of_interest.geojson"
 
 # Intermediary output paths
 BACKGROUND_OUTPUTS_PATH = OUTPUTS_PATH / "background"
-QGIS_OUTPUTS_PATH = QGIS_PATH / "outputs"
+QGIS_FIGS_PATH = QGIS_PATH / "outputs"
 RASTERS_PATH = OUTPUTS_PATH / "rasters"
 RESAMPLED_RASTERS_PATH = RASTERS_PATH / "resampled_rasters"
 OPTIMIZED_RASTERS_PATH = RASTERS_PATH / "optimized_rasters"
 CONCATENATED_DATA_PATH = OUTPUTS_PATH / "concatenated"
 NETWORK_OUTPUTS_PATH = OUTPUTS_PATH / "networks"
+QGIS_OUTPUTS_PATH = OUTPUTS_PATH / "qgis"
 MULTI_SCALE_OUTPUTS_PATH = NETWORK_OUTPUTS_PATH / "multi-scale"
 INTERSECTING_OUTPUTS_PATH = NETWORK_OUTPUTS_PATH / "intersecting"
 STRIATIONS_GEOJSON_PATH = BACKGROUND_OUTPUTS_PATH / "striations.geojson"
@@ -173,6 +183,7 @@ SCALE_METADATA_TABLE = FINAL_OUTPUTS_PATH / "scale_metadata_table.tex"
 SOURCE_MONTAGE = FINAL_OUTPUTS_PATH / "source_montage.jpg"
 SOURCE_MONTAGE_APPENDIX = FINAL_OUTPUTS_PATH / "source_montage_appendix.jpg"
 SET_WISE_TEX_OUTPUT_PATH = FINAL_OUTPUTS_PATH / "concat_set_wise_table.tex"
+SCALE_1_20000_FIG_PATH = FINAL_OUTPUTS_PATH / "scale_1_20000_fig.jpg"
 
 # Static variables
 MONTAGE_PLOT_TYPES = ("trace_rose_plot", "trace_length_plot", "branch_length_plot")
@@ -252,7 +263,8 @@ RASTER_AREA_PAIRS = {
 }
 TRACES_LIST = [
     TRACES_20M_PATHS,
-    [TRACES_20K_PATH],
+    # [TRACES_20K_PATH],
+    TRACES_20K_PATHS,
     [LIDAR_TRACES_200K_PATH],
     [EM_TRACES_200K_PATH],
     [MAG_TRACES_200K_PATH],
@@ -260,7 +272,8 @@ TRACES_LIST = [
 ]
 AREAS_LIST = [
     AREA_20M_PATHS,
-    [AREA_20K_PATH],
+    # [AREA_20K_PATH],
+    AREA_20K_PATHS,
     [AREA_200K_PATH],
     [AREA_200K_PATH],
     [AREA_200K_PATH],
@@ -607,6 +620,63 @@ def task_qgis_fig03_and_figA01_source_rasters_montage():
     }
 
 
+@non_reproducible
+def task_qgis_fig04_montage():
+    """
+    Create montage of 1:20k target area raster prints.
+    """
+    geta_path = QGIS_FIGS_PATH / "geta_1_20k_lineaments.jpg"
+    godby_path = QGIS_FIGS_PATH / "godby_1_20k_lineaments.jpg"
+
+    cmd_base = command(
+        [
+            "magick",
+            "montage",
+            "-background",
+            "black",
+            "-font",
+            "Liberation-Mono-Bold",
+            "{}",
+            "-mattecolor",
+            "black",
+            "-fill",
+            "black",
+            "-stroke",
+            "white",
+            "-bordercolor",
+            "black",
+            "-geometry",
+            "1100x",
+            "-tile",
+            "2x1",
+            "-border",
+            "2",
+            "-frame",
+            "2",
+            "{}",
+        ]
+    )
+    label_opts = dict(fontsize=250, y=240)
+    cmd = cmd_base.format(
+        # " ".join(map(str, (dem_path, mag_2_path, em_path, int_path))),
+        " ".join(
+            [
+                " ".join(add_label_to_image_cmd(path=path, label=label, **label_opts))
+                for path, label in zip((geta_path, godby_path), ("A", "B"))
+            ]
+        ),
+        SCALE_1_20000_FIG_PATH,
+    )
+
+    yield {
+        NAME: SCALE_1_20000_FIG_PATH.name,
+        FILE_DEP: [geta_path, godby_path],
+        UP_TO_DATE: [config_changed(dict(cmd_base=cmd_base, label_opts=label_opts))],
+        TARGETS: [SCALE_1_20000_FIG_PATH],
+        ACTIONS: [cmd],
+    }
+
+
 def task_final_fig01_background_lithology():
     """
     Create background figure from notebook execution.
@@ -615,7 +685,7 @@ def task_final_fig01_background_lithology():
         SFINLAND_BEDROCK_GEOJSON_PATH,
         POINTS_OF_INTEREST_PATH,
         SHORELINE_PROCESSED_PATH,
-        AREA_20K_PATH,
+        *AREA_20K_PATHS,
         AREA_200K_PATH,
         ALAND_CLIP_BOX_WKT_PATH,
         ADMINISTRATIVE_BOUNDARIES_PATH,
@@ -625,6 +695,7 @@ def task_final_fig01_background_lithology():
     ]
     _check_paths(deps)
 
+    _, areas_20k = _concat_paths(name=SCALE_1_20000)
     cmd = command(
         [
             "python",
@@ -635,8 +706,8 @@ def task_final_fig01_background_lithology():
             SFINLAND_BEDROCK_GEOJSON_PATH,
             # shoreline
             SHORELINE_PROCESSED_PATH,
-            # 20k area
-            AREA_20K_PATH,
+            # 20k areas
+            areas_20k,
             # 200k area
             AREA_200K_PATH,
             # points of interest
@@ -831,7 +902,15 @@ def task_final_fig06_multi_scale_fits_figure_montage():
     set_filenames = [f"{azi_set}_lengths.svg" for azi_set in sets]
     set_paths = [MULTI_SCALE_SET_LENGTHS / filename for filename in set_filenames]
     dep_paths = [all_path, *set_paths]
-    dep_paths_with_opt = [f"-density 300 {path}" for path in [all_path, *set_paths]]
+    # dep_paths_with_opt = [f"-density 300 {path}" for path in [all_path, *set_paths]]
+    labels = ["A", "B", "C", "D"]
+    label_opts = dict(fontsize=40, y=130)
+    dep_paths_with_opt = [
+        " ".join(
+            add_label_to_image_cmd(f"-density 300 {path}", label=label, **label_opts)
+        )
+        for path, label in zip([all_path, *set_paths], labels)
+    ]
 
     cmd = command(
         [
@@ -852,7 +931,7 @@ def task_final_fig06_multi_scale_fits_figure_montage():
         FILE_DEP: [*dep_paths],
         # TASK_DEP: ["final_multi_network_analysis"],
         TASK_DEP: [resolve_task_name(task_final_tab03_multi_network_analysis)],
-        UP_TO_DATE: [config_changed(cmd)],
+        UP_TO_DATE: [config_changed(dict(cmd=cmd, label_opts=label_opts))],
         ACTIONS: [
             _mkdir_cmd(SET_WISE_MULTI_SCALE_FITS.parent),
             lambda: check_length_paths(dep_paths),

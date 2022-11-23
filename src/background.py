@@ -7,7 +7,6 @@ from pathlib import Path
 from typing import List, Optional, Tuple
 
 import geopandas as gpd
-import numpy as np
 import pandas as pd
 import pandera as pa
 from beartype import beartype
@@ -129,7 +128,9 @@ def bedrock_gdf_suite_union(
 
 
 @beartype
-def circle_bounds_center_bottom(bounds: np.ndarray) -> Tuple[float, float]:
+def circle_bounds_center_bottom(
+    bounds: Tuple[float, float, float, float]
+) -> Tuple[float, float]:
     """
     Resolve center bottom from circle bounds.
     """
