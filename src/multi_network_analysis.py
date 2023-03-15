@@ -5,20 +5,20 @@ Network characterization of all scales together.
 import json
 from pathlib import Path
 from textwrap import dedent
-from typing import Any, Dict, List, Literal, Optional, Tuple, Type, Union
 
 import matplotlib as mpl
 import numpy as np
 import pandas as pd
 import powerlaw
 import typer
+from beartype.typing import Any, Dict, List, Literal, Optional, Tuple, Type, Union
 from matplotlib.figure import Figure
 
 # import utils
 from fractopo import MultiNetwork
 from fractopo.analysis import length_distributions
-from fractopo.analysis.network import CachedNetwork
-from fractopo.general import NAME, Param, ParamInfo, read_geofile
+from fractopo.analysis.network import Network
+from fractopo.general import MINIMUM_LINE_LENGTH, NAME, Param, ParamInfo, read_geofile
 from utils import print
 
 
@@ -121,7 +121,7 @@ def basic_latex_table_formatter(
 
 
 def _scale_network_analysis(
-    network: CachedNetwork,
+    network: Network,
     scale_output_dir: Path,
 ):
     """
@@ -264,6 +264,37 @@ def _scale_network_analysis(
     # Save branches and nodes
     network.write_branches_and_nodes(output_dir_path=scale_output_dir)
 
+    # Appendix table of lognormal and exponential fits to full length data
+    column_renames_appendix_base = {
+        "lognormal sigma": "LN Sigma",
+        "lognormal mu": "LN Mu",
+        "exponential lambda": "Exp Lambda",
+        "lognormal Kolmogorov-Smirnov distance D": "LN D",
+        "exponential Kolmogorov-Smirnov distance D": "Exp D",
+        "lognormal vs. exponential R": "LN vs. Exp R",
+        "lognormal vs. exponential p": "LN vs. Exp p",
+    }
+
+    all_desc_appendix_traces: Dict[str, Any] = network.trace_data.describe_fit(
+        cut_off=MINIMUM_LINE_LENGTH,
+    )
+    all_desc_appendix_traces[name_key] = f"{network.name} Traces"
+    all_desc_appendix_traces[count_key] = len(network.trace_length_array)
+
+    all_desc_appendix_branches: Dict[str, Any] = network.branch_data.describe_fit(
+        cut_off=MINIMUM_LINE_LENGTH,
+    )
+    all_desc_appendix_branches[name_key] = f"{network.name} Branches"
+    all_desc_appendix_branches[count_key] = len(network.branch_length_array)
+
+    appendix_df = pd.DataFrame([all_desc_appendix_traces, all_desc_appendix_branches])
+    appendix_df.rename(columns=column_renames_appendix_base, inplace=True)
+    appendix_columns = [name_key, count_key, *column_renames_appendix_base.values()]
+    appendix_df = appendix_df[appendix_columns]
+    appendix_df.set_index(name_key, inplace=True, drop=True)
+    appendix_df_path = scale_output_dir / "appendix_df.csv"
+    appendix_df.to_csv(appendix_df_path)
+
 
 def _pretty_name(scale: str):
     split = scale.split("_")
@@ -307,7 +338,7 @@ def multi_network_analysis(
         scale_output_dir,
     ) in zip(traces_paths, area_paths, scale_names, network_output_paths):
         trace_gdf, area_gdf = read_geofile(tp), read_geofile(ap)
-        network = CachedNetwork(
+        network = Network(
             trace_gdf=trace_gdf,
             area_gdf=area_gdf,
             name=_pretty_name(scale),

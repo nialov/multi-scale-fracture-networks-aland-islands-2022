@@ -142,6 +142,7 @@ BASIC_DESC_PATH = MULTI_SCALE_OUTPUTS_PATH / "basic_descriptions.csv"
 MULTI_SCALE_SET_LENGTHS = MULTI_SCALE_OUTPUTS_PATH / "multi_scale_set_lengths"
 SHORELINE_PROCESSED_PATH = BACKGROUND_OUTPUTS_PATH / "shoreline_processed.geojson"
 SET_WISE_CSV_OUTPUT_PATH = OUTPUTS_PATH / "concat_set_wise_table.csv"
+APPENDIX_FITS_TABLE_CSV_OUTPUT_PATH = OUTPUTS_PATH / "appendix_fits_table.csv"
 COLORBAR_OUTPUTS_PATH = OUTPUTS_PATH / "colorbars"
 SOURCE_RASTERS_OUTPUTS_PATH = OUTPUTS_PATH / "source_rasters"
 
@@ -156,6 +157,7 @@ MULTI_NETWORK_ANALYSIS_PY_PATH = SRC_PATH / "multi_network_analysis.py"
 DATA_COUNT_TABLE_PY_PATH = SRC_PATH / "data_count_table.py"
 AZIMUTH_SET_TABLE_PY_PATH = SRC_PATH / "azimuth_set_table.py"
 SET_WISE_FITS_PY_PATH = SRC_PATH / "set_wise_fits_table.py"
+APPENDIX_FITS_TABLE_PY_PATH = SRC_PATH / "appendix_fits_table.py"
 SCALE_METADATA_TABLE_PY_PATH = SRC_PATH / "scale_metadata_table.py"
 SHORELINE_PY_PATH = SRC_PATH / "shoreline.py"
 CREATE_AREA_BOUNDARY_PY_PATH = SRC_PATH / "create_area_boundary.py"
@@ -183,6 +185,7 @@ SCALE_METADATA_TABLE = FINAL_OUTPUTS_PATH / "scale_metadata_table.tex"
 SOURCE_MONTAGE = FINAL_OUTPUTS_PATH / "source_montage.jpg"
 SOURCE_MONTAGE_APPENDIX = FINAL_OUTPUTS_PATH / "source_montage_appendix.jpg"
 SET_WISE_TEX_OUTPUT_PATH = FINAL_OUTPUTS_PATH / "concat_set_wise_table.tex"
+APPENDIX_FITS_TABLE_TEX_OUTPUT_PATH = FINAL_OUTPUTS_PATH / "appendix_fits_table.tex"
 SCALE_1_20000_FIG_PATH = FINAL_OUTPUTS_PATH / "scale_1_20000_fig.jpg"
 
 # Static variables
@@ -1192,6 +1195,47 @@ def task_final_tab05_set_wise_fit_table():
             " ".join(cmd),
         ],
         TARGETS: [SET_WISE_TEX_OUTPUT_PATH, SET_WISE_CSV_OUTPUT_PATH],
+    }
+
+
+def task_final_appendix_fits_table():
+    """
+    Concatenate table of lognormal and exponential fits to full data.
+    """
+    full_fits_csvs = [
+        OUTPUTS_PATH / f"networks/{scale}/appendix_df.csv"
+        for scale in (SCALE_1_10, SCALE_1_20000, SCALE_1_200000_INT)
+    ]
+
+    cmd = [
+        "python",
+        str(CLI_PY_PATH),
+        "appendix-fits-table",
+        *list(map(str, full_fits_csvs)),
+        "--latex-output",
+        str(APPENDIX_FITS_TABLE_TEX_OUTPUT_PATH),
+        "--csv-output",
+        str(APPENDIX_FITS_TABLE_CSV_OUTPUT_PATH),
+    ]
+
+    return {
+        FILE_DEP: [
+            APPENDIX_FITS_TABLE_PY_PATH,
+            MULTI_NETWORK_ANALYSIS_PY_PATH,
+            UTILS_PY_PATH,
+            *full_fits_csvs,
+        ],
+        # TASK_DEP: ["final_multi_network_analysis"],
+        TASK_DEP: [resolve_task_name(task_final_fig05_network_analysis_montage)],
+        ACTIONS: [
+            _mkdir_cmd(APPENDIX_FITS_TABLE_TEX_OUTPUT_PATH.parent),
+            _mkdir_cmd(APPENDIX_FITS_TABLE_CSV_OUTPUT_PATH.parent),
+            " ".join(cmd),
+        ],
+        TARGETS: [
+            APPENDIX_FITS_TABLE_TEX_OUTPUT_PATH,
+            APPENDIX_FITS_TABLE_CSV_OUTPUT_PATH,
+        ],
     }
 
 

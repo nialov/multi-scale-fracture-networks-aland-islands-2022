@@ -8,3 +8,4 @@ qgis/outputs
 .doit.db
 .fractopo_cache
 data/rasters
+src/script.py

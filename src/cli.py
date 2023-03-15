@@ -5,6 +5,7 @@ import typer
 from rich.traceback import install
 
 import add_colorbar
+import appendix_fits_table
 import azimuth_set_table
 import concatenate_scales
 import create_area_boundary
@@ -37,6 +38,7 @@ for entrypoint in (
     shoreline.shoreline,
     visualize_drone_rasters.visualize_drone_rasters,
     scale_metadata_table.scale_metadata_table,
+    appendix_fits_table.appendix_fits_table,
 ):
 
     APP.command()(entrypoint)
