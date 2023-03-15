@@ -4,12 +4,12 @@ Utilities for analysing background data.
 
 from enum import Enum, unique
 from pathlib import Path
-from typing import List, Optional, Tuple
 
 import geopandas as gpd
 import pandas as pd
 import pandera as pa
 from beartype import beartype
+from beartype.typing import List, Optional, Tuple
 from matplotlib.axes import Axes
 from matplotlib.offsetbox import AnchoredOffsetbox
 from matplotlib_scalebar import scalebar

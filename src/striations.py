@@ -2,12 +2,12 @@
 Striations plots.
 """
 from pathlib import Path
-from typing import Tuple
 
 import geopandas as gpd
 import matplotlib.pyplot as plt
 import numpy as np
 import typer
+from beartype.typing import Tuple
 from matplotlib.axes import Axes
 from matplotlib.figure import Figure
 from matplotlib.quiver import Quiver

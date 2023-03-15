@@ -3,10 +3,10 @@ Create latex table of trace counts by raster source.
 """
 
 from pathlib import Path
-from typing import List
 
 import pandas as pd
 import typer
+from beartype.typing import List
 from shapely.geometry import MultiPolygon
 
 from fractopo.general import read_geofile

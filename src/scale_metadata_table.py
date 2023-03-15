@@ -3,11 +3,11 @@ Create latex table of fracture and lineament counts.
 """
 
 from pathlib import Path
-from typing import List
 
 # import numpy as np
 import pandas as pd
 import typer
+from beartype.typing import List
 
 from fractopo.general import read_geofile
 

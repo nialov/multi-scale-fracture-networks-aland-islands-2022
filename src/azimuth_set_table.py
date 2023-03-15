@@ -4,10 +4,10 @@ Create latex table of trace azimuth sets.
 
 import json
 from pathlib import Path
-from typing import List
 
 import pandas as pd
 import typer
+from beartype.typing import List
 
 from utils import print
 

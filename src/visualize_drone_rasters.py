@@ -3,12 +3,12 @@ Script to visualize drone target areas and traces.
 """
 
 from pathlib import Path
-from typing import List
 
 import matplotlib.pyplot as plt
 import rasterio
 import seaborn as sns
 import typer
+from beartype.typing import List
 from rasterio.plot import show
 
 from fractopo.general import read_geofile

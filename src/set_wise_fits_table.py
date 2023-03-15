@@ -4,10 +4,10 @@ Create table of set-wise length distribution analysis.
 
 from pathlib import Path
 from textwrap import dedent
-from typing import List
 
 import pandas as pd
 import typer
+from beartype.typing import List
 
 # import utils
 

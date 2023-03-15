@@ -5,11 +5,11 @@ Network characterization of each scale.
 import json
 import logging
 from pathlib import Path
-from typing import List
 
 import geopandas as gpd
 import pandas as pd
 import typer
+from beartype.typing import List
 
 from fractopo.general import crop_to_target_areas, read_geofile
 from utils import print
