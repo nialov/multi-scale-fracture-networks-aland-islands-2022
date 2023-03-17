@@ -3,6 +3,7 @@ Create latex table of fracture and lineament counts.
 """
 
 from pathlib import Path
+from textwrap import dedent
 
 # import numpy as np
 import pandas as pd
@@ -47,7 +48,19 @@ def scale_metadata_table(
     dataframe.to_latex(
         latex_table_output,
         index=False,
-        caption="Definitions of scales of observation.",
+        caption=dedent(
+            r"""
+                       Definitions of scales of observation used in this study.
+                       The name of each scale comes from the
+                       \textit{Representative Factor} that roughly represents
+                       the resolution of the raster used as the base map.
+                       The resolution of each named scale is given as the
+                       \textit{Cell Size} of the raster. Areal extent is given
+                       as the \textit{Total Target Trea} of the target areas
+                       used in the digitization of fractures or interpretation
+                       of lineaments.
+                       """
+        ).strip(),
         label="tab:scale_metadata",
         escape=False,
     )

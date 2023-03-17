@@ -418,7 +418,7 @@ def multi_network_analysis(
             int,
         ),
         Param.NUMBER_OF_TRACES_TRUE.value.name: (
-            None,
+            f"{Param.NUMBER_OF_TRACES_TRUE.value.name} $^b$",
             int,
         ),
         # Param.NUMBER_OF_BRANCHES_REAL.value.name: (
@@ -505,6 +505,7 @@ def multi_network_analysis(
                        with units displayed when applicable. EM =
                        Electromagnetic 3kHz quadrature. Mag = Magnetic rasters.
                        $^a$ Based on node counting \citep{sanderson_use_2015}.
+                       $^b$ The absolute count of trace geometries.
         """.strip()
         ),
         # caption=(
