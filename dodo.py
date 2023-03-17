@@ -175,6 +175,9 @@ DATA_COUNT_TABLE = FINAL_OUTPUTS_PATH / "data_count_table.tex"
 MULTI_NETWORK_ANALYSIS_MONTAGE = FINAL_OUTPUTS_PATH / "multi_scale_ternary_montage.pdf"
 SET_WISE_MULTI_SCALE_FITS = FINAL_OUTPUTS_PATH / "set_wise_multi_scale_fits.pdf"
 NETWORK_ANALYSIS_MONTAGE = FINAL_OUTPUTS_PATH / "scale_characterizations.pdf"
+APPENDIX_NETWORK_ANALYSIS_MONTAGE = (
+    FINAL_OUTPUTS_PATH / "appendix_scale_characterizations.pdf"
+)
 BACKGROUND_LITHOLOGY = FINAL_OUTPUTS_PATH / "bedrock_aland.pdf"
 MULTI_SCALE_ANALYSIS_TABLE = FINAL_OUTPUTS_PATH / "basic_descriptions.tex"
 DRONE_INDEX_FIGURE = FIGURES_PATH / "combined_location_map_mod.png"
@@ -190,6 +193,7 @@ SCALE_1_20000_FIG_PATH = FINAL_OUTPUTS_PATH / "scale_1_20000_fig.jpg"
 
 # Static variables
 MONTAGE_PLOT_TYPES = ("trace_rose_plot", "trace_length_plot", "branch_length_plot")
+APPENDIX_MONTAGE_PLOT_TYPES = ("trace_length_plot_full", "branch_length_plot_full")
 RASTER_AREA_PAIRS = {
     # "getaberget1_20m_070820_orto_test_1_1_area.tif": [
     #     "getaberget_20m_1_1_area.geojson",
@@ -399,6 +403,7 @@ def task_qgis_source_rasters():
     # qgz_paths = list(QGIS_PATH.glob("map_*.qgz"))
 
     for path in ALL_MAPS:
+        tmp_target_path = QGIS_PATH / f"outputs/{path.stem}.jpg"
         target_path = QGIS_OUTPUTS_PATH / f"{path.stem}.jpg"
 
         yield {
@@ -410,10 +415,13 @@ def task_qgis_source_rasters():
                 SHORELINE_PROCESSED_PATH,
             ],
             TASK_DEP: ["concatenate_scales"],
-            TARGETS: [target_path],
+            TARGETS: [tmp_target_path, target_path],
             ACTIONS: [
                 in_windows_file_system,
                 f"cd qgis && ./snapshots.bash {path.name} || exit 0",
+                f"rm -f {target_path}",
+                f"mkdir -p {target_path.parent}",
+                f"cp {tmp_target_path} {target_path}",
             ],
         }
 
@@ -773,7 +781,7 @@ def task_final_fig05_network_analysis_montage():
     scale_dirs = [OUTPUTS_PATH / f"networks/{scale}" for scale in scales]
     for scale_dir in scale_dirs:
         # scale_dir = OUTPUTS_PATH / f"networks/{scale}"
-        for plot_type in MONTAGE_PLOT_TYPES:
+        for plot_type in MONTAGE_PLOT_TYPES + APPENDIX_MONTAGE_PLOT_TYPES:
             # svg_path = list(scale_dir.glob(f"{plot_type}.svg"))[0]
             svg_path = scale_dir / f"{plot_type}.svg"
             values = plot_svgs.get(plot_type, list())
@@ -800,6 +808,7 @@ def task_final_fig05_network_analysis_montage():
     )
     tilings = ("3x1", "1x3")
     density_option = "-density 300"
+
     for plot_type, plot_paths in plot_svgs.items():
 
         output_path_horizontal = OUTPUTS_PATH / f"networks/{plot_type}_montage.png"
@@ -849,7 +858,12 @@ def task_final_fig05_network_analysis_montage():
     with_labels = [
         # ["-density", "300"]+
         add_label_to_image_cmd(path, label, fontsize=90, y=80, x=15)
-        for path, label in zip(montage_paths, ("A", "B", "C"))
+        for path, label in zip(montage_paths[0:3], ("A", "B", "C"))
+    ]
+    appendix_with_labels = [
+        # ["-density", "300"]+
+        add_label_to_image_cmd(path, label, fontsize=90, y=80, x=15)
+        for path, label in zip(montage_paths[3:], ("A", "B"))
     ]
     montage_options = command(
         [
@@ -861,32 +875,52 @@ def task_final_fig05_network_analysis_montage():
             "1x3",
         ]
     )
-    final_montage_cmd = command(
-        [
-            "magick",
-            "montage",
-            "-font",
-            "DejaVu-Sans",
-            *list(chain(*with_labels)),
-            montage_options,
-            str(NETWORK_ANALYSIS_MONTAGE),
-        ]
+    appendix_montage_options = montage_options.replace("1x3", "1x2")
+
+    def _montage_cmd(options, labels, montage_path):
+
+        final_montage_cmd = command(
+            [
+                "magick",
+                "montage",
+                "-font",
+                "DejaVu-Sans",
+                *list(chain(*labels)),
+                options,
+                str(montage_path),
+            ]
+        )
+        return final_montage_cmd
+
+    final_montage_cmd = _montage_cmd(
+        options=montage_options,
+        labels=with_labels,
+        montage_path=NETWORK_ANALYSIS_MONTAGE,
+    )
+    appendix_final_montage_cmd = _montage_cmd(
+        options=appendix_montage_options,
+        labels=appendix_with_labels,
+        montage_path=APPENDIX_NETWORK_ANALYSIS_MONTAGE,
     )
 
-    yield {
-        NAME: "combined",
-        FILE_DEP: [
-            *montage_paths,
-        ],
-        UP_TO_DATE: [config_changed(final_montage_cmd)],
-        # TASK_DEP: ["final_multi_network_analysis"],
-        TASK_DEP: [resolve_task_name(task_final_tab03_multi_network_analysis)],
-        ACTIONS: [
-            _mkdir_cmd(NETWORK_ANALYSIS_MONTAGE.parent),
-            final_montage_cmd,
-        ],
-        TARGETS: [NETWORK_ANALYSIS_MONTAGE],
-    }
+    for target, cmd in zip(
+        (NETWORK_ANALYSIS_MONTAGE, APPENDIX_NETWORK_ANALYSIS_MONTAGE),
+        (final_montage_cmd, appendix_final_montage_cmd),
+    ):
+        yield {
+            NAME: target.name,
+            FILE_DEP: [
+                *montage_paths,
+            ],
+            UP_TO_DATE: [config_changed(dict(montage_options=montage_options))],
+            # TASK_DEP: ["final_multi_network_analysis"],
+            TASK_DEP: [resolve_task_name(task_final_tab03_multi_network_analysis)],
+            ACTIONS: [
+                _mkdir_cmd(NETWORK_ANALYSIS_MONTAGE.parent),
+                cmd,
+            ],
+            TARGETS: [target],
+        }
 
 
 def task_final_fig06_multi_scale_fits_figure_montage():

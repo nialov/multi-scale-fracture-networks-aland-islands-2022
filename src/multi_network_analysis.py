@@ -7,16 +7,19 @@ from pathlib import Path
 from textwrap import dedent
 
 import matplotlib as mpl
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import powerlaw
 import typer
 from beartype.typing import Any, Dict, List, Literal, Optional, Tuple, Type, Union
+from matplotlib.axes import Axes
 from matplotlib.figure import Figure
 
 # import utils
 from fractopo import MultiNetwork
 from fractopo.analysis import length_distributions
+from fractopo.analysis.length_distributions import Dist
 from fractopo.analysis.network import Network
 from fractopo.general import MINIMUM_LINE_LENGTH, NAME, Param, ParamInfo, read_geofile
 from utils import print
@@ -83,6 +86,7 @@ def save_fig(
     assert results_dir.exists() and results_dir.is_dir()
     assert len(name) > 0
     fig.savefig(results_dir / f"{name}.{extension}", bbox_inches="tight", **kwargs)
+    plt.close("all")
 
 
 def add_identifier(ax, identifier):
@@ -118,6 +122,138 @@ def basic_latex_table_formatter(
         return value
     else:
         raise ValueError(f"Expected str, int or float as cell type. Got {type(value)}")
+
+
+def plot_distribution_fits(
+    length_array: np.ndarray,
+    label: str,
+    using_branches: bool,
+    use_probability_density_function: bool,
+    cut_off: Optional[float] = None,
+    fit: Optional[powerlaw.Fit] = None,
+    fig: Optional[Figure] = None,
+    ax: Optional[Axes] = None,
+    fits_to_plot: Tuple[Dist, ...] = (Dist.EXPONENTIAL, Dist.LOGNORMAL, Dist.POWERLAW),
+) -> Tuple[powerlaw.Fit, Figure, Axes]:
+    """
+    Plot length distribution and `powerlaw` fits.
+
+    If a powerlaw.Fit is not given it will be automatically determined (using
+    the optionally given cut_off).
+    """
+    if fit is None:
+        # Determine powerlaw, exponential, lognormal fits
+        fit = length_distributions.determine_fit(length_array, cut_off)
+
+    if fig is None:
+        if ax is None:
+            # Create figure, ax
+            fig, ax = plt.subplots(figsize=(7, 7))
+        else:
+            fig_maybe = ax.get_figure()
+            assert isinstance(fig_maybe, Figure)
+            fig = fig_maybe
+
+    assert isinstance(fig, Figure)
+    assert isinstance(ax, Axes)
+    assert ax is not None
+    assert fit is not None
+
+    # Get the x, y data from fit
+    # y values are either the complementary cumulative distribution function
+    # or the probability density function
+    # Depends on use_probability_density_function boolean
+    cut_off_is_lower = fit.xmin < length_array.min()
+    if not use_probability_density_function:
+        # complementary cumulative distribution
+        truncated_length_array, y_array = fit.ccdf()
+        full_length_array, full_y_array = fit.ccdf(original_data=True)
+    else:
+        # probability density function
+        bin_edges, y_array = fit.pdf()
+
+        # Use same bin_edges and y_array if xmin/cut-off is lower than
+        # smallest line length
+        full_bin_edges, full_y_array = fit.pdf(original_data=True)
+
+        # fit.pdf returns the bin edges. These need to be transformed to
+        # centers for plotting.
+        truncated_length_array = (bin_edges[:-1] + bin_edges[1:]) / 2.0
+        full_length_array = (full_bin_edges[:-1] + full_bin_edges[1:]) / 2.0
+
+        # filter out zeros
+        is_zero_y = np.isclose(y_array, 0.0)
+        is_zero_full_y = np.isclose(full_y_array, 0.0)
+        truncated_length_array = truncated_length_array[~is_zero_y]
+        full_length_array = full_length_array[~is_zero_full_y]
+        y_array = y_array[~is_zero_y]
+        full_y_array = full_y_array[~is_zero_full_y]
+
+    assert len(truncated_length_array) == len(y_array)
+    assert len(full_length_array) == len(full_y_array)
+
+    # Plot truncated length scatter plot
+    ax.scatter(
+        x=truncated_length_array,
+        y=y_array,
+        s=25,
+        label=label,
+        alpha=1.0,
+        color="black",
+        marker="x",
+    )
+
+    if not cut_off_is_lower:
+        # Normalize full_ccm_array to the truncated ccm_array
+        full_y_array = full_y_array / (
+            full_y_array[len(full_y_array) - len(y_array)] / y_array.max()
+        )
+        # Plot full length scatter plot with different color and transparency
+        ax.scatter(
+            x=full_length_array,
+            y=full_y_array,
+            s=3,
+            # label=f"{label} (cut)",
+            alpha=0.5,
+            color="gray",
+            marker="x",
+            zorder=-10,
+        )
+
+    # Plot the actual fits (powerlaw, exp...)
+    for fit_distribution in fits_to_plot:
+        length_distributions.plot_fit_on_ax(
+            ax,
+            fit,
+            fit_distribution,
+            use_probability_density_function=use_probability_density_function,
+        )
+
+    # Plot cut-off if applicable
+
+    # Set title with exponent
+    # rounded_exponent = round(length_distributions.calculate_exponent(fit.alpha), 3)
+    # target = "Branches" if using_branches else "Traces"
+    # if not plain:
+    ax.set_title(
+        label,
+        fontdict=dict(fontsize="xx-large"),
+    )
+
+    # Setup of ax appearance and axlims
+    length_distributions.setup_ax_for_ld(
+        ax,
+        using_branches=using_branches,
+        indiv_fit=True,
+        use_probability_density_function=use_probability_density_function,
+    )
+    length_distributions._setup_length_plot_axlims(
+        ax=ax,
+        length_array=truncated_length_array,
+        ccm_array=y_array,
+    )
+
+    return fit, fig, ax
 
 
 def _scale_network_analysis(
@@ -167,7 +303,11 @@ def _scale_network_analysis(
             # "axes.titlesize": "small",
         }
     ):
-        _, fig, _ = network.plot_trace_lengths()
+        fit, fig, ax = network.plot_trace_lengths()
+        ax.set_xlim(
+            max(fit.data.min(), 0.1) / 50,
+            fit.data.max() * 5,
+        )
         save_fig(
             fig=fig,
             results_dir=scale_output_dir,
@@ -175,7 +315,12 @@ def _scale_network_analysis(
             extension="svg",
         )
 
-        _, fig, _ = network.plot_branch_lengths()
+        fit, fig, ax = network.plot_branch_lengths()
+        ax.set_xlim(
+            max(fit.data.min(), 0.1) / 50,
+            # network.branch_data.length_array.min() / 10,
+            fit.data.max() * 5,
+        )
         save_fig(
             fig=fig,
             results_dir=scale_output_dir,
@@ -294,6 +439,32 @@ def _scale_network_analysis(
     appendix_df.set_index(name_key, inplace=True, drop=True)
     appendix_df_path = scale_output_dir / "appendix_df.csv"
     appendix_df.to_csv(appendix_df_path)
+
+    # Appendix figure of lognormal and exponential length distribution fits
+    # to full data
+
+    for using_branches, line_data in zip(
+        [False, True], [network.trace_data, network.branch_data]
+    ):
+        fit, fig, ax = plot_distribution_fits(
+            length_array=line_data.length_array,
+            label=network.name,
+            using_branches=using_branches,
+            use_probability_density_function=False,
+            cut_off=MINIMUM_LINE_LENGTH,
+            fits_to_plot=(
+                length_distributions.Dist.EXPONENTIAL,
+                length_distributions.Dist.LOGNORMAL,
+            ),
+        )
+        save_fig(
+            fig=fig,
+            results_dir=scale_output_dir,
+            name="branch_length_plot_full"
+            if using_branches
+            else "trace_length_plot_full",
+            extension="svg",
+        )
 
 
 def _pretty_name(scale: str):
