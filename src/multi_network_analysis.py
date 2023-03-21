@@ -3,6 +3,7 @@ Network characterization of all scales together.
 """
 
 import json
+import logging
 from pathlib import Path
 from textwrap import dedent
 
@@ -122,6 +123,38 @@ def basic_latex_table_formatter(
         return value
     else:
         raise ValueError(f"Expected str, int or float as cell type. Got {type(value)}")
+
+
+def _setup_length_plot_axlims(
+    ax: Axes,
+    length_array: np.ndarray,
+    ccm_array: np.ndarray,
+    # cut_off: float,
+):
+    """
+    Set ax limits for length plotting.
+    """
+    # truncated_length_array = (
+    #     length_array[length_array > cut_off] if cut_off is not None else length_array
+    # )
+
+    # TODO: Anomalous very low value lengths can mess up xlims
+    left_base = (
+        np.quantile(length_array, 0.001)
+        if length_array.min() < 0.001
+        else length_array.min()
+    )
+    left = left_base / 10
+    # left = length_array.min() / 10
+    right = length_array.max() * 10
+    bottom = ccm_array.min() / 20
+    top = ccm_array.max() * 100
+    try:
+        ax.set_xlim(left, right)
+        ax.set_ylim(bottom, top)
+    except ValueError:
+        logging.error("Failed to set up x and y limits.", exc_info=True)
+        # Don't try setting if it errors
 
 
 def plot_distribution_fits(
@@ -247,7 +280,7 @@ def plot_distribution_fits(
         indiv_fit=True,
         use_probability_density_function=use_probability_density_function,
     )
-    length_distributions._setup_length_plot_axlims(
+    _setup_length_plot_axlims(
         ax=ax,
         length_array=truncated_length_array,
         ccm_array=y_array,
@@ -650,6 +683,40 @@ def multi_network_analysis(
     basic_network_descriptions_df = multi_network.basic_network_descriptions_df(
         columns=columns
     )
+
+    # Add relative proportions of nodes and branches
+    for network_name in basic_network_descriptions_df.columns:
+        values = basic_network_descriptions_df[network_name]
+        x_count, y_count, i_count = values["X"], values["Y"], values["I"]
+        nodes_sum = sum([x_count, y_count, i_count])
+        cc_count, ci_count, ii_count = values["C - C"], values["C - I"], values["I - I"]
+        branches_sum = sum([cc_count, ci_count, ii_count])
+        x_perc = int((x_count / nodes_sum) * 100)
+        y_perc = int((y_count / nodes_sum) * 100)
+        i_perc = int((i_count / nodes_sum) * 100)
+        cc_perc = int((cc_count / branches_sum) * 100)
+        ci_perc = int((ci_count / branches_sum) * 100)
+        ii_perc = int((ii_count / branches_sum) * 100)
+
+        for label, value in zip(
+            [
+                "X",
+                "Y",
+                "I",
+                "C - C",
+                "C - I",
+                "I - I",
+            ],
+            [
+                rf"{int(x_count)} ({x_perc} \%)",
+                rf"{int(y_count)} ({y_perc} \%)",
+                rf"{int(i_count)} ({i_perc} \%)",
+                rf"{int(cc_count)} ({cc_perc} \%)",
+                rf"{int(ci_count)} ({ci_perc} \%)",
+                rf"{int(ii_count)} ({ii_perc} \%)",
+            ],
+        ):
+            basic_network_descriptions_df[network_name][label] = value
 
     # Add data source information
     sources = ("Orthomosaics", "LiDAR", "LiDAR+EM+Mag")
