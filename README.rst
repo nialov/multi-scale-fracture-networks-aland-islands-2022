@@ -2,7 +2,8 @@ Multi-scale fracture networks at Åland Islands - data analysis
 ==============================================================
 
 This is an open-source repository that enables the reproducibility of
-tables and figures in the article XXX.
+tables and figures in an article about multi-scale fracture and
+lineament analysis at Åland Islands.
 
 Software and data
 -----------------
