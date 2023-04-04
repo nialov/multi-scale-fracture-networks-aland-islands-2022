@@ -743,7 +743,7 @@ def multi_network_analysis(
                        with units displayed when applicable. EM =
                        Electromagnetic 3kHz quadrature. Mag = Magnetic rasters.
                        $^a$ Based on node counting \citep{sanderson_use_2015}.
-                       $^b$ The absolute count of trace geometries.
+                       $^b$ The absolute i.e. the "real" count of trace geometries.
         """.strip()
         ),
         # caption=(
@@ -792,7 +792,6 @@ def multi_network_analysis(
     multi_scale_set_dir_path = multi_scale_outputs_path / "multi_scale_set_lengths"
     multi_scale_set_dir_path.mkdir(parents=True, exist_ok=True)
     for azimuth_set_label, fig, ax in zip(mlds.keys(), figs, axes):
-
         # Add set identifier
         add_identifier(ax=ax, identifier=azimuth_set_label)
 
