@@ -483,7 +483,7 @@ def task_add_colorbar():
     """
     Add custom colorbars to rasters.
     """
-    labels = ["A.", "C.", "A.", "B.", "B.", "D."]
+    labels = ["(a)", "(c)", "(a)", "(b)", "(b)", "(d)"]
     cmd_base = command(
         [
             "python",
@@ -541,7 +541,7 @@ def add_label_to_image_cmd(path, label, x=30, y=60, fontsize=50):
         r"\( ",
         str(path),
         "-draw",
-        f""" "text {x},{y} '{label}.'" """,
+        f""" "text {x},{y} '{label}'" """,
         r" \)",
     ]
 
@@ -668,12 +668,13 @@ def task_qgis_fig04_montage():
         ]
     )
     label_opts = dict(fontsize=250, y=240)
+    labels = ("(a)", "(b)")
     cmd = cmd_base.format(
         # " ".join(map(str, (dem_path, mag_2_path, em_path, int_path))),
         " ".join(
             [
                 " ".join(add_label_to_image_cmd(path=path, label=label, **label_opts))
-                for path, label in zip((geta_path, godby_path), ("A", "B"))
+                for path, label in zip((geta_path, godby_path), labels)
             ]
         ),
         SCALE_1_20000_FIG_PATH,
@@ -682,7 +683,11 @@ def task_qgis_fig04_montage():
     yield {
         NAME: SCALE_1_20000_FIG_PATH.name,
         FILE_DEP: [geta_path, godby_path],
-        UP_TO_DATE: [config_changed(dict(cmd_base=cmd_base, label_opts=label_opts))],
+        UP_TO_DATE: [
+            config_changed(
+                dict(cmd_base=cmd_base, label_opts=label_opts, labels=labels)
+            )
+        ],
         TARGETS: [SCALE_1_20000_FIG_PATH],
         ACTIONS: [cmd],
     }
@@ -749,7 +754,6 @@ def task_concatenate_scales():
     area_opt = "--area-paths={}"
 
     for traces, areas, name in zip(TRACES_LIST, AREAS_LIST, DATASET_NAMES):
-
         concat_traces_path, concat_area_path = _concat_paths(name=name)
         cmd = command(
             [
@@ -810,7 +814,6 @@ def task_final_fig05_network_analysis_montage():
     density_option = "-density 300"
 
     for plot_type, plot_paths in plot_svgs.items():
-
         output_path_horizontal = OUTPUTS_PATH / f"networks/{plot_type}_montage.png"
         output_path_vertical = (
             OUTPUTS_PATH / f"networks/{plot_type}_vertical_montage.png"
@@ -855,15 +858,17 @@ def task_final_fig05_network_analysis_montage():
                 montage_paths.append(output_path)
 
     # Then create montage of the individual montages into single final montage
+    labels = ("(a)", "(b)", "(c)")
     with_labels = [
         # ["-density", "300"]+
         add_label_to_image_cmd(path, label, fontsize=90, y=80, x=15)
-        for path, label in zip(montage_paths[0:3], ("A", "B", "C"))
+        for path, label in zip(montage_paths[0:3], labels)
     ]
+    appendix_labels = ("(a)", "(b)")
     appendix_with_labels = [
         # ["-density", "300"]+
         add_label_to_image_cmd(path, label, fontsize=90, y=80, x=15)
-        for path, label in zip(montage_paths[3:], ("A", "B"))
+        for path, label in zip(montage_paths[3:], appendix_labels)
     ]
     montage_options = command(
         [
@@ -878,7 +883,6 @@ def task_final_fig05_network_analysis_montage():
     appendix_montage_options = montage_options.replace("1x3", "1x2")
 
     def _montage_cmd(options, labels, montage_path):
-
         final_montage_cmd = command(
             [
                 "magick",
@@ -903,6 +907,7 @@ def task_final_fig05_network_analysis_montage():
         montage_path=APPENDIX_NETWORK_ANALYSIS_MONTAGE,
     )
 
+    all_labels = tuple([*appendix_labels, *labels])
     for target, cmd in zip(
         (NETWORK_ANALYSIS_MONTAGE, APPENDIX_NETWORK_ANALYSIS_MONTAGE),
         (final_montage_cmd, appendix_final_montage_cmd),
@@ -912,7 +917,11 @@ def task_final_fig05_network_analysis_montage():
             FILE_DEP: [
                 *montage_paths,
             ],
-            UP_TO_DATE: [config_changed(dict(montage_options=montage_options))],
+            UP_TO_DATE: [
+                config_changed(
+                    dict(montage_options=montage_options, all_labels=all_labels)
+                )
+            ],
             # TASK_DEP: ["final_multi_network_analysis"],
             TASK_DEP: [resolve_task_name(task_final_tab03_multi_network_analysis)],
             ACTIONS: [
@@ -940,7 +949,7 @@ def task_final_fig06_multi_scale_fits_figure_montage():
     set_paths = [MULTI_SCALE_SET_LENGTHS / filename for filename in set_filenames]
     dep_paths = [all_path, *set_paths]
     # dep_paths_with_opt = [f"-density 300 {path}" for path in [all_path, *set_paths]]
-    labels = ["A", "B", "C", "D"]
+    labels = ["(a)", "(b)", "(c)", "(d)"]
     label_opts = dict(fontsize=40, y=130)
     dep_paths_with_opt = [
         " ".join(
@@ -1042,7 +1051,7 @@ def task_final_fig07_multi_network_analysis_montage():
     with_labels = [
         ["-density", "300"]
         + add_label_to_image_cmd(path=path, label=label, x=30, y=240, fontsize=50)
-        for path, label in zip(montage_target_plots, ("A", "B"))
+        for path, label in zip(montage_target_plots, ("(a)", "(b)"))
     ]
     montage_cmd = command(
         [
@@ -1436,10 +1445,10 @@ def task_final_fig02_add_index_to_drone_rasters():
             "-font",
             "DejaVu-Sans",
             *add_label_to_image_cmd(
-                path=DRONE_INDEX_FIGURE, label="A", fontsize=125, y=100
+                path=DRONE_INDEX_FIGURE, label="(a)", fontsize=110, y=90, x=25
             ),
             *add_label_to_image_cmd(
-                path=DRONE_RASTER_MONTAGE, label="B", fontsize=125, y=120
+                path=DRONE_RASTER_MONTAGE, label="(b)", fontsize=110, y=120
             ),
             # str(DRONE_INDEX_FIGURE),
             # str(DRONE_RASTER_MONTAGE),

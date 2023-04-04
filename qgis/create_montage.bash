@@ -18,13 +18,13 @@ secondary_output=../outputs/final/source_montage.jpg
 magick montage -background 'black' \
     -font Liberation-Mono-Bold \
     -pointsize 250 \
-    \( outputs/map_dem.jpg -draw "text 40,270 'A.'"  \) \
+    \( outputs/map_dem.jpg -draw "text 40,270 '(a)'"  \) \
     -pointsize 250 \
-    \( outputs/map_em.jpg -draw "text 40,270 'B.'" \) \
+    \( outputs/map_em.jpg -draw "text 40,270 '(b)'" \) \
     -pointsize 250 \
-    \( outputs/map_mag_1.jpg -draw "text 40,270 'C.'" \) \
+    \( outputs/map_mag_1.jpg -draw "text 40,270 '(c)'" \) \
     -pointsize 250 \
-    \( outputs/map_int.jpg -draw "text 40,270 'D.'" \) \
+    \( outputs/map_int.jpg -draw "text 40,270 '(d)'" \) \
     -mattecolor "black" \
     -fill "black" \
     -stroke "white" \
