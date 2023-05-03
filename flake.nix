@@ -88,6 +88,7 @@
             Run poetry install to install environment from poetry.lock
             "
             [[ ! -a .envrc ]] && echo -n "$envrc_contents" > .envrc
+            export PROJECT_DIR="$PWD"
           '';
         };
       # Use flake-utils to declare the development shell for each system nix

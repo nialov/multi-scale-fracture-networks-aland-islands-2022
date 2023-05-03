@@ -329,6 +329,12 @@ def _scale_network_analysis(
         fig=fig, results_dir=scale_output_dir, name="trace_rose_plot", extension="svg"
     )
 
+    # Save lengths to csvs in scale_output_dir
+    trace_lengths_df = pd.DataFrame({"lengths": network.trace_length_array})
+    branch_lengths_df = pd.DataFrame({"lengths": network.branch_length_array})
+    trace_lengths_df.to_csv(scale_output_dir / "trace_lengths.csv")
+    branch_lengths_df.to_csv(scale_output_dir / "branch_lengths.csv")
+
     with mpl.rc_context(
         rc={
             # "legend.fontsize": "small",
@@ -759,6 +765,7 @@ def multi_network_analysis(
     )
     assert isinstance(basic_network_descriptions_df_latex, str)
     # latex_output_path.write_text(utils.wide_table(basic_network_descriptions_df_latex))
+    latex_output_path.parent.mkdir(parents=True, exist_ok=True)
     latex_output_path.write_text(basic_network_descriptions_df_latex)
 
     # Plot trace multi-scale length distribution
