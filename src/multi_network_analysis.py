@@ -494,6 +494,7 @@ def _scale_network_analysis(
             fits_to_plot=(
                 length_distributions.Dist.EXPONENTIAL,
                 length_distributions.Dist.LOGNORMAL,
+                length_distributions.Dist.POWERLAW,
             ),
         )
         save_fig(
