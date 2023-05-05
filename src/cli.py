@@ -7,6 +7,8 @@ from rich.traceback import install
 import add_colorbar
 import appendix_fits_table
 import azimuth_set_table
+import censoring_analysis
+import censoring_plot
 import concatenate_scales
 import create_area_boundary
 import create_colorbar
@@ -39,8 +41,9 @@ for entrypoint in (
     visualize_drone_rasters.visualize_drone_rasters,
     scale_metadata_table.scale_metadata_table,
     appendix_fits_table.appendix_fits_table,
+    censoring_analysis.censoring_analysis,
+    censoring_plot.censoring_plot,
 ):
-
     APP.command()(entrypoint)
 
 

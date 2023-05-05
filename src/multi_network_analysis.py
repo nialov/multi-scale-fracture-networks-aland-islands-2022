@@ -450,6 +450,7 @@ def _scale_network_analysis(
 
     # Appendix table of lognormal and exponential fits to full length data
     column_renames_appendix_base = {
+        "power_law exponent": "PL Exp.",
         "lognormal sigma": "LN Sigma",
         "lognormal mu": "LN Mu",
         "exponential lambda": "Exp Lambda",
@@ -579,7 +580,7 @@ def multi_network_analysis(
     multi_network = MultiNetwork(tuple(networks))
 
     # Plot branch ternary plot
-    fig, _, _ = multi_network.plot_branch()
+    fig, _, _ = multi_network.plot_branch(colors=["darkblue", "darkblue", "darkgreen"])
     save_fig(
         fig=fig,
         results_dir=multi_scale_outputs_path,
@@ -589,7 +590,7 @@ def multi_network_analysis(
     )
 
     # Plot xyi ternary plot
-    fig, _, _ = multi_network.plot_xyi()
+    fig, _, _ = multi_network.plot_xyi(colors=["darkblue", "darkblue", "darkgreen"])
     save_fig(
         fig=fig,
         results_dir=multi_scale_outputs_path,

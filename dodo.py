@@ -148,6 +148,7 @@ SOURCE_RASTERS_OUTPUTS_PATH = OUTPUTS_PATH / "source_rasters"
 
 
 DRONE_RASTER_MONTAGE = OUTPUTS_PATH / "drone_raster_montage.jpg"
+CENSORING_DUMP_PATH = OUTPUTS_PATH / "censoring_dump"
 
 # Python script paths
 CONCATENATE_SCALES_PY_PATH = SRC_PATH / "concatenate_scales.py"
@@ -167,6 +168,8 @@ CLI_PY_PATH = SRC_PATH / "cli.py"
 STRIATIONS_PY_PATH = SRC_PATH / "striations.py"
 CREATE_COLORBAR_PY_PATH = SRC_PATH / "create_colorbar.py"
 ADD_COLORBAR_PY_PATH = SRC_PATH / "add_colorbar.py"
+CENSORING_ANALYSIS_PY_PATH = SRC_PATH / "censoring_analysis.py"
+CENSORING_PLOT_PY_PATH = SRC_PATH / "censoring_plot.py"
 
 
 # Final output paths
@@ -190,6 +193,7 @@ SOURCE_MONTAGE_APPENDIX = FINAL_OUTPUTS_PATH / "source_montage_appendix.jpg"
 SET_WISE_TEX_OUTPUT_PATH = FINAL_OUTPUTS_PATH / "concat_set_wise_table.tex"
 APPENDIX_FITS_TABLE_TEX_OUTPUT_PATH = FINAL_OUTPUTS_PATH / "appendix_fits_table.tex"
 SCALE_1_20000_FIG_PATH = FINAL_OUTPUTS_PATH / "scale_1_20000_fig.jpg"
+CENSORING_FIG_PATH = FINAL_OUTPUTS_PATH / "censoring.pdf"
 
 # Static variables
 MONTAGE_PLOT_TYPES = ("trace_rose_plot", "trace_length_plot", "branch_length_plot")
@@ -932,7 +936,7 @@ def task_final_fig05_network_analysis_montage():
         }
 
 
-def task_final_fig06_multi_scale_fits_figure_montage():
+def task_final_fig08_multi_scale_fits_figure_montage():
     """
     Create montage of set-wise multi-scale polyfit plots.
     """
@@ -1663,4 +1667,54 @@ def task_download_shoreline():
             run_once,
             config_changed(dict(download_url=download_url, actions=actions)),
         ],
+    }
+
+
+def task_final_fig06_censoring_figure():
+    """
+    Create latex table of scale of observation metadata.
+    """
+    trace_lengths_csv_paths = [
+        NETWORK_OUTPUTS_PATH / scale / "trace_lengths.csv"
+        for scale in [SCALE_1_10, SCALE_1_20000, SCALE_1_200000_INT]
+    ]
+
+    names = ["1:10", "1:20 000", "1:200 000"]
+    cmd = [
+        "python",
+        str(CLI_PY_PATH),
+        "censoring-analysis",
+        *list(map("--trace-length-csvs={}".format, trace_lengths_csv_paths)),
+        *list(map("--trace-names='{}'".format, names)),
+        f"--dump-path={CENSORING_DUMP_PATH}",
+    ]
+
+    yield {
+        NAME: "analysis",
+        TASK_DEP: [resolve_task_name(task_final_fig05_network_analysis_montage)],
+        FILE_DEP: [
+            CENSORING_ANALYSIS_PY_PATH,
+            *trace_lengths_csv_paths,
+        ],
+        ACTIONS: [_mkdir_cmd(CENSORING_DUMP_PATH.parent), " ".join(cmd)],
+        TARGETS: [CENSORING_DUMP_PATH],
+    }
+    cmd = [
+        "python",
+        str(CLI_PY_PATH),
+        "censoring-plot",
+        # *list(map("--trace-length-csvs={}".format, trace_lengths_csv_paths)),
+        # *list(map("--trace-names={}".format, names)),
+        f"--dump-path={CENSORING_DUMP_PATH}",
+        f"--output-path={CENSORING_FIG_PATH}",
+    ]
+
+    yield {
+        NAME: "plot",
+        FILE_DEP: [
+            CENSORING_PLOT_PY_PATH,
+            CENSORING_DUMP_PATH,
+        ],
+        ACTIONS: [_mkdir_cmd(CENSORING_FIG_PATH.parent), " ".join(cmd)],
+        TARGETS: [CENSORING_FIG_PATH],
     }

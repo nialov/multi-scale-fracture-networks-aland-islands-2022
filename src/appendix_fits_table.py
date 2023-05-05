@@ -35,13 +35,16 @@ def appendix_fits_table(
     tex_label = "tab:appendix_fits_table"
     caption = dedent(
         """
-        Parameters of lognormal and exponentia length distribution fits for
-        traces and branches for all scales. LN = lognormal, Exp = exponential,
-        D = Kolmogorov-Smirnov distance. R-value is the loglikelihood ratio
-        where a positive value indicates that the lognormal fit is more likely
-        and a negative value that the exponential fit is more likely. The
-        p-value represents the significance of the likelihood where low values
-        (<0.1) correspond to high statistical significance.
+        Parameters of power-law, lognormal and exponentia length distribution
+        fits for traces and branches for all scales without cut-offs. PL =
+        power-law, LN = lognormal, Exp = exponential, D = Kolmogorov-Smirnov
+        distance. R-value is the loglikelihood ratio where a positive value
+        indicates that the lognormal fit is more likely and a negative value
+        that the exponential fit is more likely. The p-value represents the
+        significance of the likelihood where low values (<0.1) correspond to
+        high statistical significance. Power-law is not compared to lognormal
+        and exponential distributions as it fails to model the lengths without
+        a cut-off based on the plot.
     """
     ).strip()
     dataframe.to_csv(csv_output)
