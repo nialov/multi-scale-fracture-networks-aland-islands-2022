@@ -34,7 +34,7 @@ def appendix_fits_table(
 
     tex_label = "tab:appendix_fits_table"
     caption = dedent(
-        """
+        r"""
         Parameters of power-law, lognormal and exponentia length distribution
         fits for traces and branches for all scales without cut-offs. PL =
         power-law, LN = lognormal, Exp = exponential, D = Kolmogorov-Smirnov
@@ -42,9 +42,10 @@ def appendix_fits_table(
         indicates that the lognormal fit is more likely and a negative value
         that the exponential fit is more likely. The p-value represents the
         significance of the likelihood where low values (<0.1) correspond to
-        high statistical significance. Power-law is not compared to lognormal
-        and exponential distributions as it fails to model the lengths without
-        a cut-off based on the plot.
+        high statistical significance. Based on the associated Fig.
+        \ref{fig:appendix_scale_characterizations}, power-law fails to model
+        the lengths without cut-offs and is not therefore further
+        statistically compared to lognormal and exponential distributions.
     """
     ).strip()
     dataframe.to_csv(csv_output)
