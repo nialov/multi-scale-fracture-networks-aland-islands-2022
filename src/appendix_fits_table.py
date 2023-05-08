@@ -42,10 +42,10 @@ def appendix_fits_table(
         indicates that the lognormal fit is more likely and a negative value
         that the exponential fit is more likely. The p-value represents the
         significance of the likelihood where low values (<0.1) correspond to
-        high statistical significance. Based on the associated Fig.
-        \ref{fig:appendix_scale_characterizations}, power-law fails to model
-        the lengths without cut-offs and is not therefore further
-        statistically compared to lognormal and exponential distributions.
+        high statistical significance. Since the power-law fails to model the
+        lengths without cut-offs
+        (Fig.~\ref{fig:appendix_scale_characterizations}), it is not compared
+        statistically to the lognormal and exponential distributions.
     """
     ).strip()
     dataframe.to_csv(csv_output)

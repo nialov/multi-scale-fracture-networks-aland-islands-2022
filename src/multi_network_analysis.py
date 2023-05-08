@@ -579,8 +579,9 @@ def multi_network_analysis(
     # Create MultiNetwork from loaded Networks
     multi_network = MultiNetwork(tuple(networks))
 
+    ternary_colors = ["darkblue", "darkred", "darkgreen"]
     # Plot branch ternary plot
-    fig, _, _ = multi_network.plot_branch(colors=["darkblue", "darkblue", "darkgreen"])
+    fig, _, _ = multi_network.plot_branch(colors=ternary_colors)
     save_fig(
         fig=fig,
         results_dir=multi_scale_outputs_path,
@@ -590,7 +591,7 @@ def multi_network_analysis(
     )
 
     # Plot xyi ternary plot
-    fig, _, _ = multi_network.plot_xyi(colors=["darkblue", "darkblue", "darkgreen"])
+    fig, _, _ = multi_network.plot_xyi(colors=ternary_colors)
     save_fig(
         fig=fig,
         results_dir=multi_scale_outputs_path,
